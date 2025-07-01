@@ -1,0 +1,86 @@
+definitions:
+  model.CreateMenuDto:
+    properties:
+      menu_icon:
+        type: string
+      menu_name:
+        type: string
+      menu_status:
+        type: integer
+      menu_type:
+        type: integer
+      parent_id:
+        type: integer
+      permssion_value:
+        type: string
+      sort:
+        type: integer
+      url:
+        type: string
+    type: object
+  result.Result:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: admin-api文件
+  title: admin-api
+  version: "1.0"
+paths:
+  /api/failed:
+    get:
+      description: 失敗測試接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/result.Result'
+      summary: 失敗的測試接口
+      tags:
+      - 測試相關接口
+  /api/menu:
+    post:
+      description: 新增菜單接口
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateMenuDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/result.Result'
+      summary: 新增菜單接口
+      tags:
+      - 菜單相關接口
+  /api/success:
+    get:
+      description: 成功測試接口
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/result.Result'
+      summary: 成功的測試接口
+      tags:
+      - 測試相關接口
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

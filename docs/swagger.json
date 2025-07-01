@@ -1,0 +1,132 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "admin-api文件",
+        "title": "admin-api",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/failed": {
+            "get": {
+                "description": "失敗測試接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "測試相關接口"
+                ],
+                "summary": "失敗的測試接口",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/result.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu": {
+            "post": {
+                "description": "新增菜單接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜單相關接口"
+                ],
+                "summary": "新增菜單接口",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateMenuDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/result.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/success": {
+            "get": {
+                "description": "成功測試接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "測試相關接口"
+                ],
+                "summary": "成功的測試接口",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/result.Result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.CreateMenuDto": {
+            "type": "object",
+            "properties": {
+                "menu_icon": {
+                    "type": "string"
+                },
+                "menu_name": {
+                    "type": "string"
+                },
+                "menu_status": {
+                    "type": "integer"
+                },
+                "menu_type": {
+                    "type": "integer"
+                },
+                "parent_id": {
+                    "type": "integer"
+                },
+                "permssion_value": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "result.Result": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

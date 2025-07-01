@@ -1,0 +1,27 @@
+# 啟動docker mysql
+docker-compose up -d     
+
+# 或者只啟動 Redis 服務
+docker-compose up -d redis
+
+# 停止docker
+docker-compose down                       
+
+# 手動連接docker mysql
+docker exec -it mysql-dev mysql -u root -p
+
+# 初始化swag
+go install github.com/swaggo/swag/cmd/swag@latest
+swag --version
+swag init
+http://localhost:5001/swagger/index.html
+
+
+
+# 1. 系統配置
+# 2. 日誌配置
+# 3. mysql配置
+# 4. redis配置
+# 5. 路由配置
+# 6. 通用請求回應結構
+# 7. swagger 
