@@ -36,6 +36,62 @@ const docTemplate = `{
             }
         },
         "/api/menu": {
+            "get": {
+                "description": "根據id查詢菜單接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜單相關接口"
+                ],
+                "summary": "根據id查詢菜單接口",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "菜單id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/result.Result"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "查詢菜單列表接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜單相關接口"
+                ],
+                "summary": "查詢菜單列表接口",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateMenuDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/result.Result"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "新增菜單接口",
                 "produces": [
@@ -54,6 +110,40 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.CreateMenuDto"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/result.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/menu/list": {
+            "get": {
+                "description": "查詢菜單列表接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜單相關接口"
+                ],
+                "summary": "查詢菜單列表接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "菜單名稱",
+                        "name": "menu_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "菜單狀態",
+                        "name": "menu_status",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -91,6 +181,38 @@ const docTemplate = `{
         "model.CreateMenuDto": {
             "type": "object",
             "properties": {
+                "menu_icon": {
+                    "type": "string"
+                },
+                "menu_name": {
+                    "type": "string"
+                },
+                "menu_status": {
+                    "type": "integer"
+                },
+                "menu_type": {
+                    "type": "integer"
+                },
+                "parent_id": {
+                    "type": "integer"
+                },
+                "permssion_value": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateMenuDto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
                 "menu_icon": {
                     "type": "string"
                 },

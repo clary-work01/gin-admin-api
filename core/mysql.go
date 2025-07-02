@@ -28,15 +28,35 @@ func MysqlInit() error{
 		Logger: logger.Default.LogMode(logger.Info),
 		DisableForeignKeyConstraintWhenMigrating:true,
 	})
-	if err != nil{
-		return err
+	if err != nil {
+        global.Log.Errorf("[mysql]連接失敗: %v", err)
+        return err
+    }
+    if db.Error != nil {
+        global.Log.Errorf("[mysql]數據庫錯誤: %v", db.Error)
+        return db.Error
+    }
+	Db = db
+
+    sqlDb, err := db.DB()
+    if err != nil {
+        global.Log.Errorf("[mysql]獲取SQL DB失敗: %v", err)
+        return err
+    }
+    
+    sqlDb.SetMaxIdleConns(dbConfig.MaxIdle)
+    sqlDb.SetMaxOpenConns(dbConfig.MaxOpen)
+    
+    global.Log.Infof("[mysql]連接成功")
+
+	// 運行遷移
+	if err := RunMigrations(); err != nil {
+		panic("數據庫遷移失敗: " + err.Error())
 	}
-	if db.Error != nil {
-		return err
+		
+	// 可選：添加種子數據
+	if err := SeedData(); err != nil {
+		global.Log.Errorf("種子數據添加失敗: %v", err)
 	}
-	sqlDb, _ := db.DB()
-	sqlDb.SetMaxIdleConns(dbConfig.MaxIdle)
-	sqlDb.SetMaxOpenConns(dbConfig.MaxOpen)
-	global.Log.Infof("[mysql]連接成功")
 	return nil
 }
